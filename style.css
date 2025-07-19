@@ -1,0 +1,55 @@
+body {
+  background: #0f0f0f;
+  color: #e0e0e0;
+  font-family: monospace;
+  padding: 40px;
+  margin: 0;
+}
+
+h1 {
+  color: #c06aff;
+  font-weight: normal;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+input[type="file"] {
+  background: #1a1a1a;
+  border: 1px solid #444;
+  color: #ddd;
+  padding: 8px;
+  margin-bottom: 30px;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.box {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 4px;
+  padding: 0;
+  overflow: hidden;
+}
+
+.label {
+  background: #c06aff;
+  color: black;
+  padding: 6px 12px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+pre {
+  margin: 0;
+  padding: 15px;
+  overflow-x: auto;
+  max-height: 400px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: 13px;
+  line-height: 1.4;
+}
