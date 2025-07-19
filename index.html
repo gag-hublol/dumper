@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>iqsm dumper</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>iqsm dumper</h1>
+  <input type="file" id="file">
+
+  <div class="container">
+    <div class="box" id="webhooks"><div class="label">webhooks</div><pre></pre></div>
+    <div class="box" id="apikeys"><div class="label">api keys</div><pre></pre></div>
+    <div class="box" id="urls"><div class="label">http links</div><pre></pre></div>
+    <div class="box" id="base64"><div class="label">base64 strings</div><pre></pre></div>
+  </div>
+
+  <script>
+    const fileInput = document.getElementById('file')
+    const set = (id, arr) => {
+      const el = document.querySelector(`#${id} pre`)
+      el.textContent = arr.length ? arr.join('\n') : 'none'
+    }
+
+    fileInput.addEventListener('change', async () => {
+      const file = fileInput.files[0]
+      if (!file) return
+
+      const text = await file.text()
+
+      const webhooks = [...text.matchAll(/https:\/\/discord(?:app)?\.com\/api\/webhooks\/[\w-]+\/[\w-]+/g)].map(m => m[0])
+      const apikeys = [...text.matchAll(/(?:api|sk|pk)_(?:live|test)?[a-zA-Z0-9_\-]{16,}/g)].map(m => m[0])
+      const urls = [...text.matchAll(/https?:\/\/[^\s"'\\]+/g)].map(m => m[0])
+      const base64s = [...text.matchAll(/\b(?:[A-Za-z0-9+/]{20,}={0,2})\b/g)].filter(m => m[0].length % 4 === 0).map(m => m[0])
+
+      set('webhooks', webhooks)
+      set('apikeys', apikeys)
+      set('urls', urls)
+      set('base64', base64s)
+    })
+  </script>
+</body>
+</html>
